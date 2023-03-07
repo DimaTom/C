@@ -1,35 +1,38 @@
-#include <stdio.h>
 #include <cs50.h>
+#include <stdio.h>
 
 int main(void)
-{   
-    int start;
+{
+    long start;
     do
     {
-        start = get_long("How many lammas do we have? ");
+        start = get_long("Start size: ");
         if (start < 9)
         {
-            printf ("Size should be at least 9\n");
+            printf("%li llama(s) is not enough. The population of llamas will quickly become stagnant!\n", start);
         }
     } 
     while (start < 9);
-
-    int goal;
+    
+    long goal;
     do
     {
-        goal = get_long ("How many lammas do we need? ");
-        if (goal<start)
+        goal = get_long("End size: ");
+        if (goal < start)
         {
-            printf ("Goal can't be less then current quantity\n");
+            printf("End size cannot be less than start size.\n");
         }
-    }
-    while (goal<start);
-    
+    } 
+    while (goal < start);
+
     int years = 0;
     while (start < goal)
     {
-        start += start / 12;
+        int born = start / 3;
+        int dead = start / 4;
+        start += born - dead;
         years++;
     }
-    printf("We need %i years\n", years);
+
+    printf("Years: %i\n", years);
 }
